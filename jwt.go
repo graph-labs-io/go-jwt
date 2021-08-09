@@ -7,6 +7,8 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/google/uuid"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 type tokenClaims struct {
