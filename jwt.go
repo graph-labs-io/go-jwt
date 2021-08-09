@@ -71,8 +71,8 @@ type UserJwtRecord struct {
 	InstanceId string `json:"instanceId"`
 }
 
-func VerifyTokenClaims(recievedTokenClaims tokenClaims, currentJwtRecord UserJwtRecord, requestIp string, requestInstanceId string) (bool, TokenClaimsMismatch) {
-	if recievedTokenClaims.TokenId == currentJwtRecord.TokenId && currentJwtRecord.InstanceId == requestInstanceId && currentJwtRecord.Ip == requestIp {
+func VerifyTokenClaims(recievedTokenClaims tokenClaims, currentJwtRecord UserJwtRecord, requestInstanceId string) (bool, TokenClaimsMismatch) {
+	if recievedTokenClaims.TokenId == currentJwtRecord.TokenId && currentJwtRecord.InstanceId == requestInstanceId {
 		return true, TokenClaimsMismatch{}
 	} else {
 		mismatch := TokenClaimsMismatch{}
@@ -90,14 +90,6 @@ func VerifyTokenClaims(recievedTokenClaims tokenClaims, currentJwtRecord UserJwt
 				"InstanceId",
 				requestInstanceId,
 				currentJwtRecord.InstanceId,
-			})
-		}
-
-		if requestIp != currentJwtRecord.Ip {
-			mismatch = append(mismatch, TokenClaimComparison{
-				"Ip",
-				requestIp,
-				currentJwtRecord.Ip,
 			})
 		}
 
