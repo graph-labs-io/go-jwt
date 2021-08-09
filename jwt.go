@@ -42,7 +42,7 @@ func GenerateToken(key string, ip string, instanceId string) (string, string, er
 
 func VerifyTokenSignature(tokenString string) (tokenClaims, error) {
 	parsedToken, jwtParseErr := jwt.ParseWithClaims(tokenString, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("JWT_KEY")), nil
+		return []byte(os.Getenv("BOTS_AUTH_JWT_KEY")), nil
 	})
 
 	if jwtParseErr != nil {
