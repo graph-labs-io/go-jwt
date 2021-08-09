@@ -12,18 +12,16 @@ import (
 
 type tokenClaims struct {
 	Key        string
-	Ip         string
 	TokenId    string
 	InstanceId string
 	jwt.StandardClaims
 }
 
-func GenerateToken(key string, ip string, instanceId string, jwtKey string) (string, string, error) {
+func GenerateToken(key string, instanceId string, jwtKey string) (string, string, error) {
 	tokenId := uuid.New().String()
 
 	claims := tokenClaims{
 		key,
-		ip,
 		tokenId,
 		instanceId,
 		jwt.StandardClaims{
@@ -65,7 +63,6 @@ type TokenClaimComparison struct {
 }
 
 type UserJwtRecord struct {
-	Ip         string `json:"ip"`
 	Key        string `json:"key"`
 	TokenId    string `json:"tokenId"`
 	InstanceId string `json:"instanceId"`
