@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"errors"
-	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -19,7 +18,7 @@ type tokenClaims struct {
 	jwt.StandardClaims
 }
 
-func GenerateToken(key string, ip string, instanceId string) (string, string, error) {
+func GenerateToken(key string, ip string, instanceId string, jwtKey string) (string, string, error) {
 	tokenId := uuid.New().String()
 
 	claims := tokenClaims{
@@ -34,7 +33,7 @@ func GenerateToken(key string, ip string, instanceId string) (string, string, er
 	}
 
 	jsonWebToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	signedString, jwtSignErr := jsonWebToken.SignedString([]byte(os.Getenv("JWT_KEY")))
+	signedString, jwtSignErr := jsonWebToken.SignedString([]byte(jwtKey))
 	if jwtSignErr != nil {
 		return "", "", jwtSignErr
 	}
