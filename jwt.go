@@ -25,7 +25,7 @@ func GenerateToken(key string, instanceId string, jwtKey string) (string, string
 		tokenId,
 		instanceId,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Minute * 15).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 5 * 24).Unix(),
 			IssuedAt:  time.Now().Unix(),
 		},
 	}
