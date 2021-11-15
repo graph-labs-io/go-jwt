@@ -14,17 +14,19 @@ type tokenClaims struct {
 	Key        string
 	TokenId    string
 	InstanceId string
+	DiscordId  string
 	Premium    bool
 	jwt.StandardClaims
 }
 
-func GenerateToken(key string, instanceId string, isPremium bool, jwtKey string) (string, string, error) {
+func GenerateToken(key string, instanceId string, isPremium bool, discordId string, jwtKey string) (string, string, error) {
 	tokenId := uuid.New().String()
 
 	claims := tokenClaims{
 		key,
 		tokenId,
 		instanceId,
+		discordId,
 		isPremium,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 5 * 24).Unix(),
